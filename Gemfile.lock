@@ -8,6 +8,12 @@ GEM
   specs:
     minitest (5.14.4)
     rake (13.0.3)
+    rice (3.0.0)
+    torch-rb (0.5.3)
+      rice (>= 2.2)
+    torchaudio (0.1.2)
+      rice (>= 2.2)
+      torch-rb (>= 0.3.4)
 
 PLATFORMS
   x86_64-linux
@@ -16,6 +22,8 @@ DEPENDENCIES
   minitest (~> 5.0)
   rake (~> 13.0)
   tacotron2.rb!
+  torch-rb (= 0.5.3)
+  torchaudio (= 0.1.2)
 
 BUNDLED WITH
    2.2.16

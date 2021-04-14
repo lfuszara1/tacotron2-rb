@@ -8,3 +8,6 @@ gemspec
 gem "rake", "~> 13.0"
 
 gem "minitest", "~> 5.0"
+
+gem "torch-rb", "0.5.3"
+gem "torchaudio", "0.1.2"
