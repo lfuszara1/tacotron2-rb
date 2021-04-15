@@ -55,15 +55,9 @@ class Audio
   end
 
   def melspectrogram(y)
-    d = stft(preemphasis(y))
+    d = preemphasis(y)
     s = amp_to_db(linear_to_mel(d.abs) - @config[:ref_level_db])
     normalize(s)
-  end
-
-  def inv_melspectrogram(spectrogram)
-    mel = db_to_amp(denormalize(spectrogram) + @config[:ref_level_db])
-    s = mel_to_linear(mel)
-    inv_preemphasis(griffin_lim(s**@config[:power]))
   end
 
   private
