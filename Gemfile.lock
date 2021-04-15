@@ -6,7 +6,9 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    humanize (2.5.1)
     minitest (5.14.4)
+    numo-narray (0.9.1.9)
     rake (13.0.3)
     rice (3.0.0)
     torch-rb (0.5.3)
@@ -19,7 +21,9 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  humanize
   minitest (~> 5.0)
+  numo-narray
   rake (~> 13.0)
   tacotron2.rb!
   torch-rb (= 0.5.3)

@@ -28,8 +28,8 @@ gl_iters: 100
 is_cuda: false
 pin_mem: true
 n_workers: 8
-prep: True
-pth: 'lj-22k.mrb'
+prep: true
+pth: 'data/lj-22k.mrb'
 lr: 2e-3
 betas: (0.9, 0.999)
 eps: 1e-6

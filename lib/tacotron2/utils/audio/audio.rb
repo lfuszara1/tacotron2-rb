@@ -54,6 +54,18 @@ class Audio
     inv_preemphasis(griffin_lim(s**@config[:power]))
   end
 
+  def melspectrogram(y)
+    d = stft(preemphasis(y))
+    s = amp_to_db(linear_to_mel(d.abs) - @config[:ref_level_db])
+    normalize(s)
+  end
+
+  def inv_melspectrogram(spectrogram)
+    mel = db_to_amp(denormalize(spectrogram) + @config[:ref_level_db])
+    s = mel_to_linear(mel)
+    inv_preemphasis(griffin_lim(s**@config[:power]))
+  end
+
   private
 
   def stft(y)
@@ -76,19 +88,7 @@ class Audio
   end
 
   def linear_to_mel(spectrogram)
-    mel_basis = build_mel_basis
-    mel_basis.dot spectrogram
-  end
-
-  def mel_to_linear(spectrogram)
-    mel_basis = build_mel_basis
-    inv_mel_basis = mel_basis.pinverse
-    inverse = inv_mel_basis.dot spectrogram
-    Torch.clamp(inverse, min: 1e-10)
-  end
-
-  def build_mel_basis()
-    TorchAudio::Transforms::MelSpectrogram.new(sample_rate: @config[:sample_rate], n_fft: @n_fft, n_mels: @config[:num_mels], f_min: @config[:fmin], f_max: @config[:fmax])
+    TorchAudio::Transforms::MelSpectrogram.new(sample_rate: @config[:sample_rate], n_fft: @n_fft, n_mels: @config[:num_mels], f_min: @config[:fmin], f_max: @config[:fmax]).call(spectrogram)
   end
 
   def amp_to_db(x)
@@ -108,8 +108,3 @@ class Audio
   end
 
 end
-
-a = Audio.new
-wav = a.load_audio('data/LJ001-0013.wav')
-spec =  a.spectrogram(wav)
-p a.inv_spectrogram(spec)
